@@ -5,6 +5,7 @@ import FilesComponent from './files/index.jsx';
 import CodeComponent from './code/index.jsx';
 import WebComponent from './web/index.jsx';
 import SettingsComponent from './settings/index.jsx';
+import TerminalComponent from './terminal/index.jsx';
 
 function App() {
   const [activeTab, setActiveTab] = useState('Files');
@@ -13,7 +14,7 @@ function App() {
     { icon: <Files size={24} />, label: 'Files', component: <FilesComponent /> },
     { icon: <Code size={24} />, label: 'Code', component: <CodeComponent /> },
     { icon: <Brain size={24} />, label: 'AI', component: <AI /> },
-    { icon: <Terminal size={24} />, label: 'Terminal', component: <div>Burası Terminal kısmı</div> },
+    { icon: <Terminal size={24} />, label: 'Terminal', component: <TerminalComponent /> },
     { icon: <Globe size={24} />, label: 'Web', component: <WebComponent /> },
     { icon: <Settings size={24} />, label: 'Settings', component: <SettingsComponent /> }
   ];
