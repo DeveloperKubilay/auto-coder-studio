@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Files, Code, Brain, Globe, Settings, Terminal } from 'lucide-react';
 import AI from './ai/index.jsx';
 import FilesComponent from './files/index.jsx';
@@ -6,9 +6,37 @@ import CodeComponent from './code/index.jsx';
 import WebComponent from './web/index.jsx';
 import SettingsComponent from './settings/index.jsx';
 import TerminalComponent from './terminal/index.jsx';
+import Projects from './Project/Projects.jsx';
 
 function App() {
   const [activeTab, setActiveTab] = useState('Files');
+  const [currentProject, setCurrentProject] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const projectName = localStorage.getItem('projectName');
+    setCurrentProject(projectName);
+    setLoading(false);
+  }, []);
+
+  const handleProjectSelect = (projectName) => {
+    setCurrentProject(projectName);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mb-4"></div>
+          <p className="text-white text-lg">Yükleniyor...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!currentProject) {
+    return <Projects onProjectSelect={handleProjectSelect} />;
+  }
 
   const tabs = [
     { icon: <Files size={24} />, label: 'Files', component: <FilesComponent /> },
@@ -48,8 +76,8 @@ function App() {
     <>
       <div
         style={{ 
-          padding: '20px', 
-          minHeight: 'calc(100vh - 60px)', 
+          padding: '0', 
+          minHeight: '100vh', 
           overflow: 'hidden',
           transition: 'all 0.3s ease'
         }}

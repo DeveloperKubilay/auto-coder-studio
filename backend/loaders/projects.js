@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const templateModule = require('../modules/template');
 
 module.exports = (app) => {
     const projectsDir = path.join(__dirname, '../projects');
@@ -16,5 +17,10 @@ module.exports = (app) => {
 
             res.json(directories);
         });
+    });
+
+    app.get('/templates', (req, res) => {
+        const templates = Object.keys(templateModule);
+        res.json(templates);
     });
 };
